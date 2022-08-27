@@ -2,7 +2,6 @@ import React from "react";
 import './Message.scss';
 
 const transformDateTime = (dateTime) => {
-    console.log(dateTime)
     const [dateValues, timeValues] = dateTime.split(' ');
     const [month, day, year] = dateValues.split('/');
     const [hours, minutes, seconds] = timeValues.split(':');
@@ -19,7 +18,6 @@ const transformDateTime = (dateTime) => {
 }
 
 const Message = ({message, companion}) => {
-    console.log(message)
     const dateTime = transformDateTime(message.sendDatetime);
     return(
         <div className={`message`}>

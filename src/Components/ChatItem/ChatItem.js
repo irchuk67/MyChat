@@ -16,28 +16,20 @@ const dateToNecessaryFormat = (currentDate) => {
 
 
 const ChatItem = ({chat, onSelect, selectedChat}) => {
-    const messages = window.sessionStorage.getItem(chat.chatId);
-
-    let lastNotification = chat.latestMessage;
-
-    if (messages !== null){
-        lastNotification = JSON.parse(messages).slice(-1)[0];
-    }
-
     const hasNewMessage = () => {
         if (selectedChat.chatId !== chat.chatId){
-            if(lastNotification.isNewMessage){
+            if(chat.latestMessage.isNewMessage){
                 return 'newMessage'
             }
         }else{
-            let messages = JSON.parse(window.sessionStorage.getItem(chat.chatId));
-            for(let i = 0; i < messages.length; i++) {
-                messages[i].isNewMessage = false;
+            let chats = JSON.parse(window.sessionStorage.getItem('chatList'));
+            for (let i = 0; i < chats.length; i++) {
+                if(chats[i].chatId === chat.chatId){
+                    chats[i].latestMessage.isNewMessage = false
+                }
             }
-
-            window.sessionStorage.setItem(chat.chatId, JSON.stringify(messages))
+            window.sessionStorage.setItem('chatList', JSON.stringify(chats));
         }
-
     }
 
     return(
@@ -53,11 +45,11 @@ const ChatItem = ({chat, onSelect, selectedChat}) => {
                     {chat.companionName}
                 </p>
                 <p className="chat-item__content--last-message">
-                    {lastNotification.text}
+                    {chat.latestMessage.text}
                 </p>
             </div>
             <p className={'chat-item__last-date'}>
-                {dateToNecessaryFormat(!_.isEmpty(messages) ? lastNotification.sendDatetime : lastNotification.date)}
+                {dateToNecessaryFormat(chat.latestMessage.date)}
             </p>
         </div>
     )

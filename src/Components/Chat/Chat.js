@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './Chat.scss';
 import {connect} from "react-redux";
 import {getMessageHistory, sendMessage} from '../../redux/actions'
@@ -12,7 +12,7 @@ const transformDate = (date) => {
     }
     return howToWriteNumber(date.getMonth() + 1)
         + '/'
-        + howToWriteNumber(date.getDay())
+        + howToWriteNumber(date.getDate())
         + '/'
         + howToWriteNumber(date.getFullYear())
         + ' '
@@ -26,7 +26,7 @@ const transformDate = (date) => {
 const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNewMessage) => {
     const date = new Date();
     const formattedDate = transformDate(date);
-
+    console.log(formattedDate)
     const newMessage = {
         text: messageText,
         sendDatetime: formattedDate,
@@ -34,13 +34,27 @@ const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNew
         isNewMessage: isNewMessage
     }
 
+    let chats = JSON.parse(window.sessionStorage.getItem('chatList'));
+    for (let i = 0; i < chats.length; i++) {
+        if(chats[i].chatId === chatId){
+            chats[i].latestMessage = {
+                text: messageText,
+                date: formattedDate,
+                isNewMessage: isNewMessage
+            }
+        }
+    }
+    window.sessionStorage.setItem('chatList', JSON.stringify(chats));
     window.sessionStorage.setItem(chatId, JSON.stringify([...JSON.parse(window.sessionStorage.getItem(chatId)), newMessage]))
     sendNewMessage();
 }
 
 const Chat = props => {
     const [messageText, setMessageText] = useState('');
-    const prevSelectedChat = useRef(props.selectedChat)
+
+    useEffect(() =>{
+        setMessageText('')
+    }, [props.selectedChat])
 
     const onMessageChange = (event) => {
         setMessageText(event.target.value);
@@ -60,11 +74,14 @@ const Chat = props => {
             }
 
 
-        }), Math.random()*5000 + 10000)
+        }), Math.random() * 5000 + 10000)
     }
 
+
+
     if(props.selectedChat.chatId){
-        const {companionName, companionImage, companionIsActive} = props.selectedChat;
+        const { companionName, companionImage, companionIsActive} = props.selectedChat;
+
         return(
             <div className={'chat'}>
                 <div className={'user'}>
