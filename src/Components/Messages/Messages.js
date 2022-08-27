@@ -9,17 +9,14 @@ const Messages = (props) => {
         prevMessages.current = props.messages
     })
 
-
     const {chatId, companionImage} = props.selectedChat;
 
     if((window.sessionStorage.getItem(props.selectedChat.chatId) === null) ||  prevMessages.current !== props.messages){
         props.getMessageHistory(props.selectedChat.chatId);
-        console.log(window.sessionStorage);
         window.sessionStorage.setItem(props.selectedChat.chatId, JSON.stringify(props.messages));
     }
 
     const messages = JSON.parse(window.sessionStorage.getItem(chatId));
-    console.log(messages)
 
     return messages.map(message => {
         const MyMessage = () => {

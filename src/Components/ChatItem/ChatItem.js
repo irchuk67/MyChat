@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {CheckCircleOutlined} from "@mui/icons-material";
 import _ from 'lodash';
 import './ChatItem.scss'
@@ -15,19 +15,33 @@ const dateToNecessaryFormat = (currentDate) => {
 }
 
 
-const ChatItem = ({chat, onSelect}) => {
+const ChatItem = ({chat, onSelect, selectedChat}) => {
     const messages = window.sessionStorage.getItem(chat.chatId);
-    console.log('last message sessionStorage: ' + messages)
 
     let lastNotification = chat.latestMessage;
 
     if (messages !== null){
-        console.log(_.isEmpty(messages))
         lastNotification = JSON.parse(messages).slice(-1)[0];
     }
 
+    const hasNewMessage = () => {
+        if (selectedChat.chatId !== chat.chatId){
+            if(lastNotification.isNewMessage){
+                return 'newMessage'
+            }
+        }else{
+            let messages = JSON.parse(window.sessionStorage.getItem(chat.chatId));
+            for(let i = 0; i < messages.length; i++) {
+                messages[i].isNewMessage = false;
+            }
+
+            window.sessionStorage.setItem(chat.chatId, JSON.stringify(messages))
+        }
+
+    }
+
     return(
-        <div className={'chat-item'}
+        <div className={`chat-item ${hasNewMessage()}`}
              onClick={onSelect}
         >
             <div>
@@ -51,6 +65,7 @@ const ChatItem = ({chat, onSelect}) => {
 
 const mapStateToProps = state => {
     return{
+        selectedChat: state.selectedChat,
         sendMessages: state.sendMessages
     }
 }

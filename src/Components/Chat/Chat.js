@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import './Chat.scss';
 import {connect} from "react-redux";
 import {getMessageHistory, sendMessage} from '../../redux/actions'
@@ -23,22 +23,24 @@ const transformDate = (date) => {
         + howToWriteNumber(date.getSeconds())
 }
 
-const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage) => {
+const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNewMessage) => {
     const date = new Date();
     const formattedDate = transformDate(date);
 
-    const newMyMessage = {
+    const newMessage = {
         text: messageText,
         sendDatetime: formattedDate,
-        isMyMessage: isMyMessage
+        isMyMessage: isMyMessage,
+        isNewMessage: isNewMessage
     }
 
-    window.sessionStorage.setItem(chatId, JSON.stringify([...JSON.parse(window.sessionStorage.getItem(chatId)), newMyMessage]))
+    window.sessionStorage.setItem(chatId, JSON.stringify([...JSON.parse(window.sessionStorage.getItem(chatId)), newMessage]))
     sendNewMessage();
 }
 
 const Chat = props => {
     const [messageText, setMessageText] = useState('');
+    const prevSelectedChat = useRef(props.selectedChat)
 
     const onMessageChange = (event) => {
         setMessageText(event.target.value);
@@ -48,14 +50,13 @@ const Chat = props => {
         e.preventDefault();
 
         if(messageText){
-            sendMessageFunc(props.sendMessage, messageText, props.selectedChat.chatId, true);
+            sendMessageFunc(props.sendMessage, messageText, props.selectedChat.chatId, true, false);
             setMessageText('')
         }
 
-
         setTimeout(() => randomJoke().then(res => {
             if (res.value){
-                sendMessageFunc(props.sendMessage, res.value, props.selectedChat.chatId, false)
+                sendMessageFunc(props.sendMessage, res.value, props.selectedChat.chatId, false, true)
             }
 
 
