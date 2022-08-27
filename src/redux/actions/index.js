@@ -1,4 +1,4 @@
-import {ADD_MESSAGE, LOAD_CHATS, MESSAGE_HISTORY, SELECT_CHAT} from "../types";
+import {ADD_MESSAGE, LOAD_CHATS, MESSAGE_HISTORY, SEARCH_CHAT, SELECT_CHAT} from "../types";
 import chats from '../../chats.json';
 import userChats from '../../userChats.json';
 
@@ -35,4 +35,11 @@ const sendMessage = () => {
         payload: 1
     }
 }
-export {selectChat, loadChats, getMessageHistory, sendMessage}
+
+const searchChat = (term) => {
+    return{
+        type: SEARCH_CHAT,
+        payload: term
+    }
+}
+export {selectChat, loadChats, getMessageHistory, sendMessage, searchChat}
