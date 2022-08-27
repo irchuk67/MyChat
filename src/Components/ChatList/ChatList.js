@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import './ChatList.scss';
 import {connect} from "react-redux";
-import {selectChat, loadChats} from "../../redux/actions";
+import {selectChat, loadChats, openSidebar} from "../../redux/actions";
 import ChatItem from "../ChatItem/ChatItem";
 import {useRef} from "react";
 
@@ -11,6 +11,7 @@ const ChatList = (props) => {
 
     const onSelect = async (chat) => {
         props.selectChat(chat);
+        props.openSidebar(true)
     }
 
     useEffect(() => {
@@ -21,8 +22,6 @@ const ChatList = (props) => {
         props.loadChats();
         window.sessionStorage.setItem('chatList', JSON.stringify(props.chats))
     }
-
-    console.log(props.searchTerm)
 
     const chatList = JSON.parse(window.sessionStorage.getItem('chatList'))
         .sort((a, b) =>  new Date(b.latestMessage.date) - new Date(a.latestMessage.date));
@@ -55,5 +54,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {selectChat, loadChats
+export default connect(mapStateToProps, {selectChat, loadChats, openSidebar
 })(ChatList);

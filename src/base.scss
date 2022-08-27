@@ -11,6 +11,10 @@ $blue: #5EAACD;
 $green : #74B373;
 
 $border-primary: 1px solid #E6E6E6;
+
+$width-middle: 43.75em; //700px
+
+$height-large: 0;
 *,
 *::after,
 *::before{
@@ -24,6 +28,10 @@ html{
   box-sizing: border-box;
   overflow: hidden;
   height: 90rem;
+
+  @media only screen and (max-width: $width-middle) {
+    font-size: 56.25%;
+  }
 }
 
 body{

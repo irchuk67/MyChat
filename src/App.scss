@@ -1,4 +1,8 @@
-.App{
+@import "./base";
+.app{
   display: grid;
   grid-template-columns: 1fr 2fr;
+  @media only screen and (max-width: $width-middle){
+    grid-template-columns: auto;
+  }
 }

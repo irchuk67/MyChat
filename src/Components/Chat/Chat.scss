@@ -1,51 +1,88 @@
 @import "../../base";
 
-.chat{
-  display: flex;
-  flex-direction: column;
+.chat {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
 
   border-left: $border-primary;
 
-  position: relative;
 
+  @media only screen and (max-width: $width-middle) {
+    grid-row-start: 1;
+    grid-column: 1/-1;
+
+  }
 }
 
-.user{
+.invisible {
+  @media only screen and (max-width: $width-middle) {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+}
+
+.user {
   display: flex;
   align-items: center;
   background-color: $color-primary;
   padding: .5rem 1rem;
   border-bottom: $border-primary;
-  &__name{
+
+  @media only screen and (max-width: $width-middle) {
+    padding: 1.5rem 2rem;
+    justify-content: center;
+    position: relative;
+
+    &__button{
+      color: $color-primary-dark;
+      position: absolute;
+      left: 2rem;
+      transition: all .2s;
+      &:hover{
+        left: 2.2rem;
+      }
+    }
+
+  }
+  &__name {
     font-size: 2.5rem;
     margin-left: 1rem;
   }
+
 }
 
-.messages{
+.messages {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  height: 75vh;
   overflow-y: auto;
+
+
 }
 
-.write-field{
+.write-field {
   width: 100%;
   padding: 3rem 2rem;
   background-color: $color-primary;
-  bottom: 0;
-  position: absolute;
   border-top: $border-primary;
-  input{
+  position: relative;
+  input {
     width: 100%;
     border-radius: 2rem;
     border: $border-primary;
     padding: 1.5rem;
     color: $font-primary;
-    &:focus-visible{
+
+    @media only screen and (max-width: $width-middle) {
+    }
+
+    &:focus-visible {
       outline: none;
       color: $font-dark;
     }
   }
 }
+
+

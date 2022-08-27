@@ -1,4 +1,4 @@
-import {ADD_MESSAGE, LOAD_CHATS, MESSAGE_HISTORY, SEARCH_CHAT, SELECT_CHAT} from "../types";
+import {ADD_MESSAGE, LOAD_CHATS, MESSAGE_HISTORY, OPEN_SIDEBAR, SEARCH_CHAT, SELECT_CHAT} from "../types";
 import chats from '../../chats.json';
 import userChats from '../../userChats.json';
 
@@ -42,4 +42,11 @@ const searchChat = (term) => {
         payload: term
     }
 }
-export {selectChat, loadChats, getMessageHistory, sendMessage, searchChat}
+
+const openSidebar = (isOpened) => {
+    return{
+        type: OPEN_SIDEBAR,
+        payload: !isOpened
+    }
+}
+export {selectChat, loadChats, getMessageHistory, sendMessage, searchChat, openSidebar}

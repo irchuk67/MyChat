@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import './Chat.scss';
 import {connect} from "react-redux";
-import {getMessageHistory, sendMessage} from '../../redux/actions'
-import {CheckCircleOutlined, Send} from "@mui/icons-material";
+import {getMessageHistory, sendMessage, openSidebar} from '../../redux/actions'
+import {CheckCircleOutlined, Send, ArrowBack} from "@mui/icons-material";
 import Messages from "../Messages/Messages";
 import {randomJoke} from "../../api/chucknorisAPI";
 
@@ -36,7 +36,7 @@ const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNew
 
     let chats = JSON.parse(window.sessionStorage.getItem('chatList'));
     for (let i = 0; i < chats.length; i++) {
-        if(chats[i].chatId === chatId){
+        if (chats[i].chatId === chatId) {
             chats[i].latestMessage = {
                 text: messageText,
                 date: formattedDate,
@@ -52,7 +52,7 @@ const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNew
 const Chat = props => {
     const [messageText, setMessageText] = useState('');
 
-    useEffect(() =>{
+    useEffect(() => {
         setMessageText('')
     }, [props.selectedChat])
 
@@ -63,13 +63,13 @@ const Chat = props => {
     const onMessageSend = (e) => {
         e.preventDefault();
 
-        if(messageText){
+        if (messageText) {
             sendMessageFunc(props.sendMessage, messageText, props.selectedChat.chatId, true, false);
             setMessageText('')
         }
 
         setTimeout(() => randomJoke().then(res => {
-            if (res.value){
+            if (res.value) {
                 sendMessageFunc(props.sendMessage, res.value, props.selectedChat.chatId, false, true)
             }
 
@@ -78,14 +78,27 @@ const Chat = props => {
     }
 
 
+    const className = `chat ${props.isSidebarOpen ? 'invisible' : ''}`;
 
-    if(props.selectedChat.chatId){
-        const { companionName, companionImage, companionIsActive} = props.selectedChat;
+    const generateButton = () => {
+        console.log(window.innerWidth)
+        if (window.innerWidth <= 700) {
+            return (
+                <div className={'user__button'} onClick={() => props.openSidebar(props.isSidebarOpen)}>
+                    <ArrowBack/>
+                </div>
+            )
+        }
+    }
 
-        return(
-            <div className={'chat'}>
+    if (props.selectedChat.chatId) {
+        const {companionName, companionImage, companionIsActive} = props.selectedChat;
+
+        return (
+            <div className={className}>
                 <div className={'user'}>
-                    <div>
+                    {generateButton()}
+                    <div className={'user__img'}>
                         <img src={companionImage} alt="Companion image" className="img"/>
                         {companionIsActive ? <CheckCircleOutlined className={'is-active'}/> : null}
                     </div>
@@ -110,14 +123,15 @@ const Chat = props => {
         )
     }
 
-    return <div className={'chat'}/>
+    return <div className={className}/>
 
 }
 
 const mapStateToProps = (state) => {
     return {
         selectedChat: state.selectedChat,
-        messages: state.messages
+        messages: state.messages,
+        isSidebarOpen: state.isOpenSidebar
     }
 }
-export default connect(mapStateToProps, {getMessageHistory, sendMessage})(Chat);
+export default connect(mapStateToProps, {getMessageHistory, sendMessage, openSidebar})(Chat);

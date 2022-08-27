@@ -3,10 +3,11 @@ import './Sidebar.scss';
 import SearchBar from "../SearchBar/SearchBar";
 import ChatList from "../ChatList/ChatList";
 import Account from "../Account/Account";
+import {connect} from "react-redux";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     return(
-        <div className={'sidebar'}>
+        <div className={`sidebar ${!props.isOpen ? 'invisible' : ''}`}>
             <Account/>
             <SearchBar/>
             <ChatList/>
@@ -14,4 +15,11 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar;
+const mapStateToProps = state => {
+    return{
+        selectedChat: state.selectedChat,
+        isOpen: state.isOpenSidebar
+    }
+}
+
+export default connect(mapStateToProps)(Sidebar);
