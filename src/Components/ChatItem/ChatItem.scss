@@ -1,0 +1,36 @@
+@import "../../base";
+.chat-item{
+  padding: 2rem 1rem;
+
+  display: grid;
+  grid-template-columns: max-content auto max-content;
+  grid-gap: 1rem;
+  border-bottom: $border-primary;
+  &__img{
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 100%;
+  }
+  &__is-active{
+    color: green;
+    margin-left: -1.25rem;
+    margin-bottom: -.4rem;
+  }
+  &__content{
+    &--user-name{
+      font-size: 1.3rem;
+      color: $color-primary-dark;
+    }
+    &--last-message{
+      font-size: 1.1rem;
+      margin-top: .5rem;
+      line-height: 1.4rem;
+      color: $font-primary;
+    }
+  }
+
+  &__last-date{
+    line-height: 1.4rem;
+    color: $font-dark;
+  }
+}

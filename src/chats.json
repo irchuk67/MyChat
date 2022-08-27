@@ -1,0 +1,79 @@
+{
+ "chats" : [
+    {
+        "chatId" : 1,
+        "messages" : [
+            {
+                "text" : "I`ve thrown you report in trash",
+                "sendDatetime" : "06/12/2017 15:00:00",
+                "isMyMessage" : true
+            },
+            {
+                "text" : "You are the worst!",
+                "sendDatetime" : "06/12/2017 15:02:00",
+                "isMyMessage" : false
+            }
+        ]
+    },
+    {
+        "chatId" : 2,
+        "messages" : [
+            {
+                "text" : "Quickly come to the meeting room 1B, we have a big server issue",
+                "sendDatetime" : "04/22/2017 16:00:00",
+                "isMyMessage" : false
+            },
+            {
+                "text" : "I`m having breakfast right now, can`t you wait for 10 minutes?",
+                "sendDatetime" : "04/22/2017 16:05:00",
+                "isMyMessage" : true
+            },
+            {
+                "text" : "We are losing money! Quick!",
+                "sendDatetime" : "04/22/2017 16:10:00",
+                "isMyMessage" : false
+            }
+        ]
+    },
+    {
+        "chatId" : 3,
+        "messages" : [
+            {
+                "text" : "Can you give me a raise?",
+                "sendDatetime" : "04/22/2017 16:00:00",
+                "isMyMessage" : true
+            },
+            {
+                "text" : "Not this quarter",
+                "sendDatetime" : "04/22/2017 16:01:00",
+                "isMyMessage" : false
+            },
+            {
+                "text" : "Quickly come to the meeting room 1B, we have a big server issue",
+                "sendDatetime" : "04/22/2017 16:11:00",
+                "isMyMessage" : false
+            }
+        ]
+    },
+    {
+        "chatId" : 4,
+        "messages" : [
+            {
+                "text" : "Will you have time to help me with my monthly report?",
+                "sendDatetime" : "04/22/2017 16:00:00",
+                "isMyMessage" : false
+            },
+            {
+                "text" : "Year, sure. After lunch",
+                "sendDatetime" : "04/22/2017 16:05:00",
+                "isMyMessage" : true
+            },
+            {
+                "text" : "You are the best!",
+                "sendDatetime" : "04/22/2017 16:10:00",
+                "isMyMessage" : false
+            }
+        ]
+    }
+    ]
+}

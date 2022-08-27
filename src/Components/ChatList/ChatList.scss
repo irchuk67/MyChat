@@ -1,0 +1,13 @@
+@import "../../base";
+
+.chats{
+
+  overflow-y: auto;
+  scrollbar-gutter: var(--gutter, auto);
+  & h5{
+    color: $blue;
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: 1.5rem;
+  }
+}

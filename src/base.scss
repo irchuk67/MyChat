@@ -1,0 +1,61 @@
+$color-primary: #F5F5F5;
+$color-primary-light: #FFFFFF;
+$color-primary-dark: #3C4252;
+
+$font-dark: #3D3D3D;
+$font-light: #EBEFF6;
+$font-primary: #ACACAC;
+
+$blue: #5EAACD;
+
+$green : #74B373;
+
+$border-primary: 1px solid #E6E6E6;
+*,
+*::after,
+*::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html{
+  font-size: 62.5%;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 90rem;
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+html, body, #root, #root>div {
+  height: 100%
+}
+
+.img{
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 100%;
+  font-size: .5rem;
+  text-align: center;
+}
+
+.is-active{
+  color: $green;
+  margin-left: -1.25rem;
+  margin-bottom: -.4rem;
+}
+
+.send{
+  color: $font-primary;
+  position: absolute;
+  z-index: 5;
+  top: 4.75rem;
+  right: 2.75rem;
+}
+
+

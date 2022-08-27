@@ -1,0 +1,69 @@
+@import "../../base";
+
+.message{
+  display: flex;
+  &__content{
+    flex: 0 1 100%;
+  }
+  &__notification{
+    background-color: $color-primary;
+    border-radius: 3rem;
+    padding: 1.5rem 2rem;
+    width: fit-content;
+  }
+  &__text{
+    font-size: 1.2rem;
+    color: $font-dark;
+  }
+  &__date{
+    color: $font-primary;
+    text-align: end;
+  }
+}
+
+.not-my-message .message{
+  &__content{
+    margin-left: 1rem;
+  }
+  &__notification{
+    background-color: $color-primary-dark;
+  }
+
+  &__text{
+    color: $font-light;
+  }
+
+  &__date{
+    text-align: start;
+  }
+}
+
+.not-my-message{
+  min-width: min-content;
+  max-width: 55%;
+  &:not(:last-child){
+    margin-bottom: 2rem;
+
+  }
+}
+
+
+.my-message{
+  width: max-content;
+  align-self: flex-end;
+  min-width: min-content;
+  max-width: 55%;
+
+  &:not(:last-child){
+    margin-bottom: 2rem;
+  }
+
+  & .message{
+    &__content{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+}
+

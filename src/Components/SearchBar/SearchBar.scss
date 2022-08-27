@@ -1,0 +1,31 @@
+@import '../../base';
+
+.search-bar{
+  background-color: $color-primary;
+  padding: 1rem;
+  position: relative;
+  border-bottom: $border-primary;
+
+  &__search{
+    color: $font-primary;
+    position: absolute;
+    z-index: 5;
+    top: 1.75rem;
+    left: 2rem;
+  }
+
+  &__input{
+    width: 100%;
+    border-radius: 5rem;
+    padding-left: 3rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    border: 1px solid $font-light;
+    color: $font-primary;
+
+    &:focus-visible{
+      outline: none;
+      color: $font-dark;
+    }
+  }
+}
