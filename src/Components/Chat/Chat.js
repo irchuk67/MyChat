@@ -115,7 +115,7 @@ const Chat = props => {
                                value={messageText}
                                onChange={event => onMessageChange(event)}
                         />
-                        <Send className={'send'}/>
+                        <Send className={'send'} onClick={(e) => onMessageSend(e)}/>
                     </form>
 
                 </div>

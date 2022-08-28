@@ -1,7 +1,28 @@
-import {ADD_MESSAGE, LOAD_CHATS, MESSAGE_HISTORY, OPEN_SIDEBAR, SEARCH_CHAT, SELECT_CHAT} from "../types";
+import {
+    ADD_MESSAGE,
+    LOAD_CHATS,
+    MESSAGE_HISTORY,
+    OPEN_SIDEBAR,
+    SEARCH_CHAT,
+    SELECT_CHAT,
+    SIGN_IN,
+    SIGN_OUT
+} from "../types";
 import chats from '../../chats.json';
 import userChats from '../../userChats.json';
 
+const signIn = (userId) => {
+    return {
+        type: SIGN_IN,
+        payload: userId
+    }
+}
+
+const signOut = () => {
+    return {
+        type: SIGN_OUT
+    }
+}
 const selectChat  = (chatData) => {
     return{
         type: SELECT_CHAT,
@@ -49,4 +70,4 @@ const openSidebar = (isOpened) => {
         payload: !isOpened
     }
 }
-export {selectChat, loadChats, getMessageHistory, sendMessage, searchChat, openSidebar}
+export {selectChat, loadChats, getMessageHistory, sendMessage, searchChat, openSidebar, signIn, signOut}

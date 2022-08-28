@@ -1,0 +1,78 @@
+@import '../../base';
+
+.log-in{
+  grid-column: 1/-1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: linear-gradient(to right bottom, rgba($color-primary-light,.7), rgba($color-primary-dark,.7)), url('../../icons/seamless-pattern-with-social-media-networking-global-internet-communication-chatting-instant-messaging-symbols-white-background-vector-illustration-line-art-style-wallpaper_198278-7649.webp');
+  background-size: contain;
+
+  &__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba($color-primary-light, .9);
+    width: 50vw;
+    height: 50vh;
+    border-radius: 3rem;
+    padding: 3rem 5rem;
+
+    @media only screen and (max-width: $width-middle){
+      width: 75vw;
+      height: 40vh;
+    }
+  }
+
+  &__heading{
+    font-size: 4rem;
+    font-weight: 600;
+    @media only screen and (max-width: $width-middle){
+      font-size: 3rem;
+    }
+  }
+}
+
+.button{
+  border: none;
+}
+
+.button-in{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  border-radius: 1rem;
+
+
+/*  width: 15vw;
+  height: 15vh;*/
+  padding: 2rem 3rem;
+  font-size: 2rem;
+
+  & svg{
+    width: 5rem;
+    height: 3rem;
+  }
+
+  @media only screen and (max-width: $width-small){
+    flex-direction: column;
+    font-size: 1.4rem;
+
+    & svg{
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.button-out{
+  color: $color-primary-dark;
+  background: none;
+  & svg{
+    width: 3rem;
+    height: 2rem;
+  }
+}

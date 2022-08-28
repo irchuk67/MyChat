@@ -1,15 +1,21 @@
 import React from "react";
-import Sidebar from "./Components/Sidebar/Sidebar";
-import Chat from "./Components/Chat/Chat";
+import {Router, Route} from 'react-router-dom';
 import './App.scss';
+import LogIn from "./Components/LogIn/LogIn";
+import history from "./history";
+import ProtectedRoute from "./ProtectedRoute";
 
-const App = () => {
+const App = (props) => {
     return (
         <div className="app">
-            <Sidebar />
-            <Chat/>
+            <Router history={history}>
+                <Route path={'/'} component={LogIn}/>
+                <ProtectedRoute path={'/chat'}/>
+            </Router>
+
         </div>
     );
 }
+
 
 export default App;
