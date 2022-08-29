@@ -5,12 +5,12 @@ import LogIn from "./Components/LogIn/LogIn";
 import history from "./history";
 import ProtectedRoute from "./ProtectedRoute";
 
-const App = (props) => {
+const App = () => {
     return (
         <div className="app">
             <Router history={history}>
                 <Route path={'/'} component={LogIn}/>
-                <ProtectedRoute path={'/chat'}/>
+                <ProtectedRoute/>
             </Router>
 
         </div>

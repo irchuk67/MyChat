@@ -70,4 +70,5 @@ const openSidebar = (isOpened) => {
         payload: !isOpened
     }
 }
+
 export {selectChat, loadChats, getMessageHistory, sendMessage, searchChat, openSidebar, signIn, signOut}

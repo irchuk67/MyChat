@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import './Chat.scss';
 import {connect} from "react-redux";
 import {getMessageHistory, sendMessage, openSidebar, selectChat} from '../../redux/actions'
-import {CheckCircleOutlined, Send, ArrowBack} from "@mui/icons-material";
+import {CheckCircleOutlined, Send} from "@mui/icons-material";
 import Messages from "../Messages/Messages";
 import {randomJoke} from "../../api/chucknorisAPI";
 
@@ -23,15 +23,15 @@ const transformDate = (date) => {
         + howToWriteNumber(date.getSeconds())
 }
 
-const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNewMessage) => {
+const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNewMessage, soundPlayed) => {
     const date = new Date();
     const formattedDate = transformDate(date);
-    console.log(formattedDate)
     const newMessage = {
         text: messageText,
         sendDatetime: formattedDate,
         isMyMessage: isMyMessage,
-        isNewMessage: isNewMessage
+        isNewMessage: isNewMessage,
+        hadSoundPlayed: soundPlayed
     }
 
     let chats = JSON.parse(window.sessionStorage.getItem('chatList'));
@@ -40,7 +40,8 @@ const sendMessageFunc = (sendNewMessage, messageText, chatId, isMyMessage, isNew
             chats[i].latestMessage = {
                 text: messageText,
                 date: formattedDate,
-                isNewMessage: isNewMessage
+                isNewMessage: isNewMessage,
+                hadSoundPlayed: soundPlayed
             }
         }
     }
@@ -64,13 +65,13 @@ const Chat = props => {
         e.preventDefault();
 
         if (messageText) {
-            sendMessageFunc(props.sendMessage, messageText, props.selectedChat.chatId, true, false);
+            sendMessageFunc(props.sendMessage, messageText, props.selectedChat.chatId, true, false, true);
             setMessageText('')
         }
 
         setTimeout(() => randomJoke().then(res => {
             if (res.value) {
-                sendMessageFunc(props.sendMessage, res.value, props.selectedChat.chatId, false, true)
+                sendMessageFunc(props.sendMessage, res.value, props.selectedChat.chatId, false, true, false)
             }
 
 
@@ -102,7 +103,7 @@ const Chat = props => {
                 <div className={'user'}>
                     {generateButton()}
                     <div className={'user__img'}>
-                        <img src={companionImage} alt="Companion image" className="img"/>
+                        <img src={companionImage} alt="Companion" className="img"/>
                         {companionIsActive ? <CheckCircleOutlined className={'is-active'}/> : null}
                     </div>
                     <p className="user__name">

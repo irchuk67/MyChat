@@ -16,13 +16,10 @@ const dateToNecessaryFormat = (currentDate) => {
 
 
 const ChatItem = ({chat, onSelect, selectedChat, sentMessages}) => {
-    const prewNumberOfSentMessages = useRef(0);
-
-    console.log(prewNumberOfSentMessages.current);
-    console.log(sentMessages)
+    const prevNumberOfSentMessages = useRef(0);
     useEffect(()=>{
-        prewNumberOfSentMessages.current = sentMessages;
-    }, [sentMessages]);
+        prevNumberOfSentMessages.current = sentMessages;
+    });
 
     const hasNewMessage = () => {
         if (selectedChat.chatId !== chat.chatId){
@@ -40,21 +37,32 @@ const ChatItem = ({chat, onSelect, selectedChat, sentMessages}) => {
         }
     }
 
-    const sound = () => {
-        if(chat.latestMessage.isNewMessage){
-            return soundReceived
-        }else {
-            return null
+    const setSoundPlayed = () => {
+        let chats = JSON.parse(window.sessionStorage.getItem('chatList'));
+        for (let i = 0; i < chats.length; i++) {
+            if(chats[i].chatId === chat.chatId){
+                chats[i].latestMessage.hadSoundPlayed = true
+            }
         }
+        window.sessionStorage.setItem('chatList', JSON.stringify(chats));
+    }
+
+    const sound = () => {
+        if(!chat.latestMessage.hadSoundPlayed){
+            console.log(chat.latestMessage)
+            setSoundPlayed();
+            return soundReceived
+        }
+        return null
     }
 
     return(
         <div className={`chat-item ${hasNewMessage()}`}
              onClick={onSelect}
         >
-            {prewNumberOfSentMessages.current < sentMessages ? <audio autoPlay={true} src={sound()}/> : null }
+            {prevNumberOfSentMessages.current < sentMessages ? <audio autoPlay={true} src={sound()}/> : null }
             <div>
-                <img src={chat.companionImage} alt="Companion image" className="img"/>
+                <img src={chat.companionImage} alt="Companion" className="img"/>
                 {chat.companionIsActive ? <CheckCircleOutlined className={'is-active'}/> : null}
             </div>
             <div className="chat-item__content">
@@ -75,7 +83,8 @@ const ChatItem = ({chat, onSelect, selectedChat, sentMessages}) => {
 const mapStateToProps = state => {
     return{
         selectedChat: state.selectedChat,
-        sentMessages: state.sentMessages
+        sentMessages: state.sentMessages,
+        hadPlayed: state.hadPlayed
     }
 }
 export default connect(mapStateToProps)(ChatItem);

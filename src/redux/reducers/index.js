@@ -14,6 +14,6 @@ export default combineReducers({
     sentMessages: SendMessageReducer,
     searchTerm: SearchReducer,
     isOpenSidebar: SidebarOpenReducer,
-    signedUser: AuthReducer
+    signedUser: AuthReducer,
 })
 
