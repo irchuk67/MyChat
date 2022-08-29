@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './Chat.scss';
 import {connect} from "react-redux";
-import {getMessageHistory, sendMessage, openSidebar} from '../../redux/actions'
+import {getMessageHistory, sendMessage, openSidebar, selectChat} from '../../redux/actions'
 import {CheckCircleOutlined, Send, ArrowBack} from "@mui/icons-material";
 import Messages from "../Messages/Messages";
 import {randomJoke} from "../../api/chucknorisAPI";
@@ -77,14 +77,18 @@ const Chat = props => {
         }), Math.random() * 5000 + 10000)
     }
 
+    const onBackClick = () => {
+        props.openSidebar(props.isSidebarOpen);
+        props.selectChat({});
+    }
 
     const className = `chat ${props.isSidebarOpen ? 'invisible' : ''}`;
 
     const generateButton = () => {
         if (window.innerWidth <= 700) {
             return (
-                <div className={'user__button'} onClick={() => props.openSidebar(props.isSidebarOpen)}>
-                    <ArrowBack/>
+                <div className={'user__button'} onClick={() => onBackClick()}>
+                    &larr;
                 </div>
             )
         }
@@ -133,4 +137,4 @@ const mapStateToProps = (state) => {
         isSidebarOpen: state.isOpenSidebar
     }
 }
-export default connect(mapStateToProps, {getMessageHistory, sendMessage, openSidebar})(Chat);
+export default connect(mapStateToProps, {getMessageHistory, sendMessage, openSidebar, selectChat})(Chat);
