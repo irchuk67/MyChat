@@ -7,7 +7,7 @@ import {Google, Logout} from '@mui/icons-material';
 class GoogleAuth extends Component {
     componentDidMount() {
         const start = () => gapi.client.init({
-            clientId: '140681333736-i9tcend2vrmjoggl6dsmk8hpjc743jrn.apps.googleusercontent.com',
+            clientId: '547440415372-050dbh438n38hoav9k53qpvg03ec2fqt.apps.googleusercontent.com',
             scope: 'email',
             plugin_name: 'MyChat'
         }).then(() => {
