@@ -35,6 +35,14 @@
   }
 }
 
-.newMessage{
-  background-color: #74B373;
+.newMessage.chat-item{
+  background-color: $color-primary-dark;
+  .chat-item__content{
+    &--user-name{
+      color: $color-primary;
+    }
+  }
+  .chat-item__last-date{
+    color: $color-primary;
+  }
 }

@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {CheckCircleOutlined} from "@mui/icons-material";
-import _ from 'lodash';
 import './ChatItem.scss'
 import {connect} from "react-redux";
+import soundReceived from '../../audio/mixkit-correct-answer-tone-2870.wav';
 
 const dateToNecessaryFormat = (currentDate) => {
     let date = new Date(currentDate);
@@ -15,7 +15,15 @@ const dateToNecessaryFormat = (currentDate) => {
 }
 
 
-const ChatItem = ({chat, onSelect, selectedChat}) => {
+const ChatItem = ({chat, onSelect, selectedChat, sentMessages}) => {
+    const prewNumberOfSentMessages = useRef(0);
+
+    console.log(prewNumberOfSentMessages.current);
+    console.log(sentMessages)
+    useEffect(()=>{
+        prewNumberOfSentMessages.current = sentMessages;
+    });
+
     const hasNewMessage = () => {
         if (selectedChat.chatId !== chat.chatId){
             if(chat.latestMessage.isNewMessage){
@@ -32,10 +40,19 @@ const ChatItem = ({chat, onSelect, selectedChat}) => {
         }
     }
 
+    const sound = () => {
+        if(chat.latestMessage.isNewMessage){
+            return soundReceived
+        }else {
+            return null
+        }
+    }
+
     return(
         <div className={`chat-item ${hasNewMessage()}`}
              onClick={onSelect}
         >
+            {prewNumberOfSentMessages.current < sentMessages ? <audio autoPlay={true} src={sound()}/> : null }
             <div>
                 <img src={chat.companionImage} alt="Companion image" className="img"/>
                 {chat.companionIsActive ? <CheckCircleOutlined className={'is-active'}/> : null}
@@ -58,7 +75,7 @@ const ChatItem = ({chat, onSelect, selectedChat}) => {
 const mapStateToProps = state => {
     return{
         selectedChat: state.selectedChat,
-        sendMessages: state.sendMessages
+        sentMessages: state.sentMessages
     }
 }
 export default connect(mapStateToProps)(ChatItem);

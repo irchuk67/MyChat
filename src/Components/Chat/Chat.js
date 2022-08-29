@@ -81,7 +81,6 @@ const Chat = props => {
     const className = `chat ${props.isSidebarOpen ? 'invisible' : ''}`;
 
     const generateButton = () => {
-        console.log(window.innerWidth)
         if (window.innerWidth <= 700) {
             return (
                 <div className={'user__button'} onClick={() => props.openSidebar(props.isSidebarOpen)}>
