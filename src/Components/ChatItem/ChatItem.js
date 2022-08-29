@@ -22,7 +22,7 @@ const ChatItem = ({chat, onSelect, selectedChat, sentMessages}) => {
     console.log(sentMessages)
     useEffect(()=>{
         prewNumberOfSentMessages.current = sentMessages;
-    });
+    }, [sentMessages]);
 
     const hasNewMessage = () => {
         if (selectedChat.chatId !== chat.chatId){
